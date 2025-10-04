@@ -26,3 +26,9 @@ https://willhoffer.com/2024-10-23/how-to-install-manim-on-windows/
 ### Notes
 - If using VScode, install the `Manim Sideview` extension.
 - Test if working on file `square_to_circle.py`
+
+
+## Run the file
+`manim -pql bipartite_matching.py WeightedBipartiteMatching`
+
+`manim -pql bipartite_matching_old.py WeightedBipartiteMatching`
