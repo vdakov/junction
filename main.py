@@ -16,7 +16,7 @@ earner1 = Earner(
     applicable_preferences=[False, False, False, False],
     location=(0,0),
     rating=5,
-    worktime=4
+    worktime=4,
     constraints={"gender": lambda g: g == 1}  
 )
 
