@@ -3,18 +3,20 @@ import numpy as np
 
 class WeightedBipartiteMatching(Scene):
     def construct(self):
+        self.camera.background_color = "#191919"
+
         left_nodes = ["A", "B", "C"]
-        right_nodes = ["1", "2", "3"]
+        right_nodes = ["1", "2"]
 
         # Edge weights: values between 0 and 1
         edges = {
-            ("A", "1"): 0.8, ("A", "2"): 0.3,
-            ("B", "2"): 0.6, ("B", "3"): 0.9,
-            ("C", "1"): 0.4, ("C", "3"): 0.7,
+            ("A", "1"): 0.91, ("A", "2"): 0.34,
+            ("B", "2"): 0.72, 
+            ("C", "1"): 0.45, ("C", "2"): 0.7,
         }
 
         # Example matching (note: only existing edges will be highlighted)
-        matching = {("A", "1"), ("B", "3"), ("C", "2")}  # ("C","2") does NOT exist, will be ignored
+        matching = {("A", "1"), ("B", "2")}  # ("C","2") does NOT exist, will be ignored
 
         bottom_of_screen = -2
 
@@ -27,8 +29,8 @@ class WeightedBipartiteMatching(Scene):
         left_positions = [p + LEFT * 3 for p in spaced_positions(len(left_nodes), top=2.2, bottom=bottom_of_screen)]
         right_positions = [p + RIGHT * 3 for p in spaced_positions(len(right_nodes), top=2.2, bottom=bottom_of_screen)]
 
-        left_nodes_vg = VGroup(*[Circle(radius=0.3, color=BLUE).move_to(p) for p in left_positions])
-        right_nodes_vg = VGroup(*[Circle(radius=0.3, color=GREEN).move_to(p) for p in right_positions])
+        left_nodes_vg = VGroup(*[Circle(radius=0.3, color=ORANGE).move_to(p) for p in left_positions])
+        right_nodes_vg = VGroup(*[Circle(radius=0.3, color=YELLOW).move_to(p) for p in right_positions])
 
         left_labels = VGroup(*[Text(n, font_size=26).move_to(node) for n, node in zip(left_nodes, left_nodes_vg)])
         right_labels = VGroup(*[Text(n, font_size=26).move_to(node) for n, node in zip(right_nodes, right_nodes_vg)])
@@ -62,7 +64,10 @@ class WeightedBipartiteMatching(Scene):
             start = left_nodes_vg[i].get_center()
             end = right_nodes_vg[j].get_center()
 
-            line = Line(start, end, stroke_width=2, color=GRAY)
+            direction = end - start
+            unit_dir = direction / np.linalg.norm(direction)
+            offset = unit_dir * 0.31  # same as your circle radius
+            line = Line(start + offset, end - offset, stroke_width=2, color=GRAY)   
             base_pos = (start + end) / 2 + UP * 0.3
 
             final_pos = np.copy(base_pos)
@@ -71,7 +76,7 @@ class WeightedBipartiteMatching(Scene):
                     final_pos = (start + end) / 2 + DOWN * 0.3
                     break
 
-            label = Text(f"{w:.1f}", font_size=22).move_to(final_pos)
+            label = Text(f"{w:.2f}", font_size=22).move_to(final_pos)
             placed_labels.append(final_pos)
             edge_objects.append(((u, v), line, label))
 
@@ -88,7 +93,10 @@ class WeightedBipartiteMatching(Scene):
             j = right_nodes.index(v)
             start = left_nodes_vg[i].get_center()
             end = right_nodes_vg[j].get_center()
-            highlight_line = Line(start, end, stroke_width=6, color=YELLOW)
+            direction = end - start
+            unit_dir = direction / np.linalg.norm(direction)
+            offset = unit_dir * 0.32
+            highlight_line = Line(start + offset, end - offset, stroke_width=6, color="#2dad5a")
             highlight_lines.append(highlight_line)
             self.play(Create(highlight_line), run_time=0.4)
             self.wait(0.2)
