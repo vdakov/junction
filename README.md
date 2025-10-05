@@ -31,4 +31,5 @@ https://willhoffer.com/2024-10-23/how-to-install-manim-on-windows/
 ## Run the file
 `manim -pql bipartite_matching.py WeightedBipartiteMatching`
 `manim -pql sum_of_weights.py WeightedSum`
+`manim -pql alices_match.py WeightedSum`
 
