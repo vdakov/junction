@@ -1,7 +1,12 @@
-# junction
+# Driven by Preferences
 
+This is a proof-of-concept project for the JunctionXDelft 2025 Hackathon. The topic improving Earners; (Drivers') experience. We have chosen to take an approach to try giving them agency in termos of their safety, profits and work-life balance in a computationally efficient manner. 
 
-# Installation guide
+Link to the YT Pitch Here: [Link](https://youtu.be/7uvhT0awkrw)
+
+This repository features abstract Earner and Rider structures, as well as a structure using a basic version of bipartite matching to connect drivers with each other, based on some preference features. Comments are welcome!
+
+## Installation guide
 
 Both these guides should work for Windows, chocolatey is supposed to be more reliable. Try both if one doesn't work!
 
